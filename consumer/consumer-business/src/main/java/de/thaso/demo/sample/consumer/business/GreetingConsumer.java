@@ -30,13 +30,15 @@ public class GreetingConsumer implements Serializable {
         consumer.subscribe(Collections.singleton(TOPIC));
         new Thread(() -> {
             while (! done) {
-                final ConsumerRecords<String, Greeting> consumerRecords = consumer.poll(Duration.ofSeconds(10));
+                final ConsumerRecords<String, Greeting> consumerRecords = consumer.poll(Duration.ofSeconds(1));
 
                 consumerRecords.forEach(record -> {
+                    LOGGER.info("==> polled record : " + record.toString());
                     final Greeting greeting = record.value();
                     LOGGER.info("==> polled key : " + record.key());
                     process(greeting);
                 });
+                consumer.commitAsync();
             }
             consumer.close();
         }).start();

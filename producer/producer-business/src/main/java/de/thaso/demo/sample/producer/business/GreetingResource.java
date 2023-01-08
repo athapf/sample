@@ -33,8 +33,8 @@ public class GreetingResource {
         throws ExecutionException, InterruptedException, TimeoutException {
 
         if(StringUtils.isBlank(name)) {
-            return greetingProducer.sendEmployee(new Greeting("Hello, World!", "myself", ModeEnum.COLLOQUIAL));
+            return greetingProducer.sendEmployee(new Greeting("Hello, Everyone!", "from producer", ModeEnum.FORMALLY));
         }
-        return new Greeting("Hello World!", "none", ModeEnum.COLLOQUIAL);
+        return new Greeting("Hello my Dear!", "from Producer", ModeEnum.COLLOQUIAL);
     }
 }

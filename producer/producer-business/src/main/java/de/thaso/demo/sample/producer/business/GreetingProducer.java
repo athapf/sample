@@ -22,6 +22,8 @@ public class GreetingProducer {
     @Inject
     KafkaProducer<String, Greeting> producer;
 
+    private Long counter = 0L;
+
     @PreDestroy
     public void terminate() {
         producer.close();
@@ -31,7 +33,7 @@ public class GreetingProducer {
         throws ExecutionException, InterruptedException, TimeoutException {
         LOGGER.info("==> send kafka greeting");
 
-        producer.send(new ProducerRecord<>(TOPIC, "key_" + RandomStringUtils.randomAlphanumeric(5), greeting))
+        producer.send(new ProducerRecord<>(TOPIC, "key_" + (counter++) + "_" + RandomStringUtils.randomAlphanumeric(5), greeting))
             .get(5, TimeUnit.SECONDS);
         return greeting;
     }

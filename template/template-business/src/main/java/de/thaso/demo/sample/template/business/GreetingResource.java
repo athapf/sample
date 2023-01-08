@@ -4,6 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -19,12 +20,15 @@ import java.util.concurrent.TimeoutException;
 public class GreetingResource {
     private static final Logger LOGGER = LoggerFactory.getLogger(GreetingResource.class);
 
+    @Inject
+    private ProducerRestClient producerRestClient;
+
     @GET
     @Path("/check")
     @Produces(MediaType.TEXT_PLAIN)
     public String check() {
         LOGGER.info("==> check" );
-        return "ok";
+        return "ok / " + producerRestClient.callCheck();
     }
 
     @GET
@@ -32,7 +36,7 @@ public class GreetingResource {
         throws ExecutionException, InterruptedException, TimeoutException {
 
         if(StringUtils.isBlank(name)) {
-            return new Greeting("Hello, World!", "myself", ModeEnum.COLLOQUIAL);
+            return producerRestClient.callGreeting(name);
         }
         return new Greeting("Hello World!", "none", ModeEnum.COLLOQUIAL);
     }

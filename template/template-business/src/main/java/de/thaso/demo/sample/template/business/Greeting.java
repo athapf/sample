@@ -1,5 +1,8 @@
 package de.thaso.demo.sample.template.business;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Greeting {
 
     private String salutation;
