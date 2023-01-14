@@ -1,10 +1,11 @@
-package de.thaso.demo.sample.producer.business;
+package de.thaso.demo.sample.experiment.business;
 
 public class Greeting {
 
     private String salutation;
     private String name;
     private ModeEnum mode;
+    private Mitteilung mitteilung;
 
     public Greeting() {
     }
@@ -13,6 +14,13 @@ public class Greeting {
         this.salutation = salutation;
         this.name = name;
         this.mode = mode;
+    }
+
+    public Greeting(final String salutation, final String name, final ModeEnum mode, final Mitteilung mitteilung) {
+        this.salutation = salutation;
+        this.name = name;
+        this.mode = mode;
+        this.mitteilung = mitteilung;
     }
 
     public String getSalutation() {
@@ -37,5 +45,13 @@ public class Greeting {
 
     public void setMode(final ModeEnum mode) {
         this.mode = mode;
+    }
+
+    public Mitteilung getMitteilung() {
+        return mitteilung;
+    }
+
+    public void setMitteilung(final Mitteilung mitteilung) {
+        this.mitteilung = mitteilung;
     }
 }
